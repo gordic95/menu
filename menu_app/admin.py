@@ -1,13 +1,11 @@
 from django.contrib import admin
-from . models import MainMenu, MenuItem
+from . models import MainMenu
 
 class MainMenuAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    list_display_links = ('name',)
+    list_display = ('title', 'parent', 'url', 'route_name')
+    list_display_links = ('title',)
+    prepopulated_fields = {'url': ('title',)}
 
-class MenuItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent',)
-    list_display_links = ('name',)
+
 
 admin.site.register(MainMenu, MainMenuAdmin)
-admin.site.register(MenuItem, MenuItemAdmin)
