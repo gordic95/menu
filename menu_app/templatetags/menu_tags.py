@@ -12,17 +12,17 @@ def draw_menu(context, parent_slug=None):
         items = []
 
         for menu in menus:
-            item_html = f"<li><a href='{menu.url}'>{menu.title}</a>"
+            if menu.is_active:
+                item_html = f"<li><a href='{menu.url}'>{menu.title}</a>"
 
+                children = MainMenu.objects.filter(parent=menu.id)
+                if children.exists():
+                    item_html += '<ul>'
+                    item_html += build_menu_items(children)
+                    item_html += '</ul>'
 
-            children = MainMenu.objects.filter(parent=menu.id)
-            if children.exists():
-                item_html += '<ul>'
-                item_html += build_menu_items(children)
-                item_html += '</ul>'
-
-            item_html += "</li>"
-            items.append(item_html)
+                item_html += "</li>"
+                items.append(item_html)
 
         return ''.join(items)
 

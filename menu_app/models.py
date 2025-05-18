@@ -10,7 +10,7 @@ class MainMenu(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return f'Пункт меню - {self.title}'
 
     class Meta:
         verbose_name_plural = "Пункты меню"
